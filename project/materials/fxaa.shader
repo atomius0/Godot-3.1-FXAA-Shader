@@ -1,10 +1,12 @@
 shader_type spatial;
 
+uniform vec2 resolution = vec2(1024, 600);
+
 void fragment() {
 	float FXAA_REDUCE_MIN = (1.0/ 128.0);
 	float FXAA_REDUCE_MUL = (1.0 / 8.0);
 	float FXAA_SPAN_MAX =  8.0;
-	vec2 resolution = vec2(1024, 600);
+	//vec2 resolution = vec2(1024, 600);
 	float val = 1.0;
 	vec2 inverseVP = vec2(1.0 / resolution.x, 1.0 / resolution.y);
 	vec3 rgbNW = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(-val, -val) * inverseVP)).xyz;

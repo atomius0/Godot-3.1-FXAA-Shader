@@ -1,3 +1,7 @@
+// FXAA Shader for Godot 3.1 GLES2 renderer
+// original shader source from: https://godotengine.org/qa/13916/fxaa-broken-in-godot-2-1-2
+// link from: https://github.com/godotengine/godot/issues/26646
+
 shader_type spatial;
 
 uniform vec2 resolution = vec2(1024, 600);

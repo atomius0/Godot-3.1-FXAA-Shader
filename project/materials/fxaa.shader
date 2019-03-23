@@ -2,7 +2,7 @@
 // original shader source from: https://godotengine.org/qa/13916/fxaa-broken-in-godot-2-1-2
 // link from: https://github.com/godotengine/godot/issues/26646
 
-shader_type spatial;
+shader_type canvas_item;
 
 uniform vec2 resolution = vec2(1024, 600);
 
@@ -46,8 +46,8 @@ void fragment() {
 	
 	float lumaB = dot(rgbB, luma);
 	if ((lumaB < lumaMin) || (lumaB > lumaMax)){
-		ALBEDO.rgb = rgbA;
+		COLOR.rgb = rgbA;
 	}else{
-		ALBEDO.rgb = rgbB;
+		COLOR.rgb = rgbB;
 	}
 }

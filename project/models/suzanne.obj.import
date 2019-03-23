@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/suzanne.obj-fc08f324fdfdf1aff97dfc80c202ab4a.mesh"
+
+[deps]
+
+files=[ "res://.import/suzanne.obj-fc08f324fdfdf1aff97dfc80c202ab4a.mesh" ]
+
+source_file="res://models/suzanne.obj"
+dest_files=[ "res://.import/suzanne.obj-fc08f324fdfdf1aff97dfc80c202ab4a.mesh", "res://.import/suzanne.obj-fc08f324fdfdf1aff97dfc80c202ab4a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

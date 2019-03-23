@@ -14,10 +14,10 @@ void fragment() {
 	float val = 1.0;
 	vec2 inverseVP = vec2(1.0 / resolution.x, 1.0 / resolution.y);
 	vec3 rgbNW = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(-val, -val) * inverseVP)).xyz;
-	vec3 rgbNE = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(val, -val) * inverseVP)).xyz;
-	vec3 rgbSW = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(-val, val) * inverseVP)).xyz;
-	vec3 rgbSE = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(val, val) * inverseVP)).xyz;
-	vec3 rgbM  = texture(SCREEN_TEXTURE, SCREEN_UV).xyz; // is the .xyz correct?
+	vec3 rgbNE = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(val, -val) * inverseVP)).xyz;
+	vec3 rgbSW = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(-val, val) * inverseVP)).xyz;
+	vec3 rgbSE = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(val, val) * inverseVP)).xyz;
+	vec3 rgbM  = texture(SCREEN_TEXTURE, SCREEN_UV).xyz;
 	vec3 luma  = vec3(0.299, 0.587, 0.114);
 	float lumaNW = dot(rgbNW, luma);
 	float lumaNE = dot(rgbNE, luma);

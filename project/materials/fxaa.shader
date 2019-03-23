@@ -1,18 +1,18 @@
 shader_type spatial;
 
 void fragment() {
-	float FXAA_REDUCE_MIN =  (1.0/ 128.0);
-	float FXAA_REDUCE_MUL =  (1.0 / 8.0);
-	float FXAA_SPAN_MAX  =  8.0;
-	vec2 resolution=vec2(1024,600);
-	float val=1.0;
+	float FXAA_REDUCE_MIN = (1.0/ 128.0);
+	float FXAA_REDUCE_MUL = (1.0 / 8.0);
+	float FXAA_SPAN_MAX =  8.0;
+	vec2 resolution = vec2(1024, 600);
+	float val = 1.0;
 	vec2 inverseVP = vec2(1.0 / resolution.x, 1.0 / resolution.y);
 	vec3 rgbNW = texture(SCREEN_TEXTURE, SCREEN_UV + (vec2(-val, -val) * inverseVP)).xyz;
 	vec3 rgbNE = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(val, -val) * inverseVP)).xyz;
 	vec3 rgbSW = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(-val, val) * inverseVP)).xyz;
 	vec3 rgbSE = texture(SCREEN_TEXTURE,SCREEN_UV + (vec2(val, val) * inverseVP)).xyz;
 	vec3 rgbM  = texture(SCREEN_TEXTURE, SCREEN_UV).xyz; // is the .xyz correct?
-	vec3 luma = vec3(0.299, 0.587, 0.114);
+	vec3 luma  = vec3(0.299, 0.587, 0.114);
 	float lumaNW = dot(rgbNW, luma);
 	float lumaNE = dot(rgbNE, luma);
 	float lumaSW = dot(rgbSW, luma);
@@ -25,23 +25,23 @@ void fragment() {
 	dir.x = -((lumaNW + lumaNE) - (lumaSW + lumaSE));
 	dir.y =  ((lumaNW + lumaSW) - (lumaNE + lumaSE));
 	float dirReduce = max((lumaNW + lumaNE + lumaSW + lumaSE) *
-	                    (0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);
+		(0.25 * FXAA_REDUCE_MUL), FXAA_REDUCE_MIN);
 	float rcpDirMin = 1.0 / (min(abs(dir.x), abs(dir.y)) + dirReduce);
 	dir = min(vec2(FXAA_SPAN_MAX, FXAA_SPAN_MAX),
-	        max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),
-	        dir * rcpDirMin)) * inverseVP;
+		max(vec2(-FXAA_SPAN_MAX, -FXAA_SPAN_MAX),
+		dir * rcpDirMin)) * inverseVP;
 	
 	vec3 rgbA = (1.0/2.0) * (
-	           texture(SCREEN_TEXTURE,SCREEN_UV + dir * (1.0/3.0 - 0.5)).xyz +
-	           texture(SCREEN_TEXTURE,SCREEN_UV + dir * (2.0/3.0 - 0.5)).xyz);
-	    vec3 rgbB = rgbA * (1.0/2.0) + (1.0/4.0) * (
-	           texture(SCREEN_TEXTURE,SCREEN_UV + dir * (0.0/3.0 - 0.5)).xyz +
-	           texture(SCREEN_TEXTURE,SCREEN_UV + dir * (3.0/3.0 - 0.5)).xyz);
+		texture(SCREEN_TEXTURE,SCREEN_UV + dir * (1.0/3.0 - 0.5)).xyz +
+		texture(SCREEN_TEXTURE,SCREEN_UV + dir * (2.0/3.0 - 0.5)).xyz);
+	vec3 rgbB = rgbA * (1.0/2.0) + (1.0/4.0) * (
+		texture(SCREEN_TEXTURE,SCREEN_UV + dir * (0.0/3.0 - 0.5)).xyz +
+		texture(SCREEN_TEXTURE,SCREEN_UV + dir * (3.0/3.0 - 0.5)).xyz);
 	
 	float lumaB = dot(rgbB, luma);
 	if ((lumaB < lumaMin) || (lumaB > lumaMax)){
-	     ALBEDO.rgb = rgbA;
+		ALBEDO.rgb = rgbA;
 	}else{
-	   ALBEDO.rgb  = rgbB;
+		ALBEDO.rgb = rgbB;
 	}
 }
